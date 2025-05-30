@@ -5,6 +5,19 @@ Version 1.2.1
 Tool to read Vintage Story map database and export as PNG.
 """
 
+# _____________ Nuitka Project Options _____________
+# nuitka-project: --enable-plugin=tk-inter
+# nuitka-project-if: {OS} in ("Windows", "Linux", "FreeBSD"):
+#    nuitka-project: --onefile
+# nuitka-project-if: {OS} in ("Windows"):
+#    nuitka-project: --windows-icon-from-ico={MAIN_DIRECTORY}/img/icons/win.ico
+#    nuitka-project: --windows-console-mode=disable
+# nuitka-project-if: {OS} in ("Darwin"):
+#    nuitka-project: --standalone
+#    nuitka-project: --macos-create-app-bundle
+#    nuitka-project: --macos-app-icon={MAIN_DIRECTORY}/img/icons/macos.icns
+# __________________________________________________
+
 import json
 import sqlite3
 import sys
