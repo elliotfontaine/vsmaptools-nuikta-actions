@@ -13,7 +13,6 @@ Tool to read Vintage Story map database and export as PNG.
 #    nuitka-project: --windows-icon-from-ico={MAIN_DIRECTORY}/img/icons/win.ico
 #    nuitka-project: --windows-console-mode=disable
 # nuitka-project-if: {OS} in ("Darwin"):
-#    nuitka-project: --macos-create-app-bundle
 #    nuitka-project: --macos-app-icon={MAIN_DIRECTORY}/img/icons/macos.icns
 # __________________________________________________
 
