@@ -10,13 +10,14 @@ Tool to read Vintage Story map database and export as PNG.
 # nuitka-project-if: {OS} in ("Windows", "Darwin", "Linux", "FreeBSD"):
 #    nuitka-project: --mode=app
 # nuitka-project-if: {OS} in ("Windows"):
-#    nuitka-project: --windows-icon-from-ico={MAIN_DIRECTORY}/img/icons/win.ico
+#    nuitka-project: --windows-icon-from-ico={MAIN_DIRECTORY}/img/icons/vsmaptools.ico
 #    nuitka-project: --windows-console-mode=disable
 # nuitka-project-if: {OS} in ("Darwin"):
-#    nuitka-project: --macos-app-icon={MAIN_DIRECTORY}/img/icons/macos.icns
+#    nuitka-project: --macos-app-icon={MAIN_DIRECTORY}/img/icons/vsmaptools.icns
 # __________________________________________________
 
 import json
+import platform
 import sqlite3
 import sys
 import time
@@ -219,6 +220,16 @@ class Config:
             )
 
 
+def get_executable_dir() -> Path:
+    if getattr(sys, "frozen", False):
+        exec_dir = Path(sys.executable).resolve().parent
+        if platform.system() == "Darwin" and exec_dir.match("Contents/MacOS"):
+            exec_dir = exec_dir.parent.parent.parent
+        return exec_dir
+    else:
+        return Path(__file__).resolve().parent
+
+
 def simple_progress_bar(
     iterable: Iterable[T],
     total: Optional[int] = None,
@@ -301,7 +312,9 @@ class RedirectText:
 
 
 def main() -> None:
-    config = Config.from_file(CONFIG_PATH)
+
+    config_path = get_executable_dir() / "config.json"
+    config = Config.from_file(config_path)
 
     print(f"Loading map pieces from {config.db_path}")
     conn = sqlite3.connect(config.db_path)

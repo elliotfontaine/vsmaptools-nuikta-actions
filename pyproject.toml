@@ -1,0 +1,23 @@
+[build-system]
+requires = ["cx_freeze"]
+
+[project]
+name = "vsmaptools"
+version = "1.2.1"
+description = "Export your Vintage Story minimap to a pixel-perfect, high-resolution PNG image."
+authors = [{ name = "Elliot Fontaine" }]
+license-files = ["LICENSE"]
+readme = "README.md"
+requires-python = ">=3.11"
+
+[tool.cxfreeze]
+executables = [{ script = "vsmaptools.py", base = "gui" }]
+
+[tool.cxfreeze.build_exe]
+include_files = ["README.md", "config.json", "LICENSE"]
+
+[tool.cx_freeze.executable.vsmaptools]
+script = "vsmaptools.py"
+icon = "img/icons/vsmaptools"
+target_name = "VS_Map_Renderer"
+copyright = "The_Lunarian"
